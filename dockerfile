@@ -1,9 +1,7 @@
 FROM eclipse-temurin:17-jdk-alpine
 
-VOLUME /tmp
+COPY demo.jar app.jar
 
-ARG JAR_FILE
+EXPOSE 8080
 
-COPY ${JAR_FILE} app.jar
-
-ENTRYPOINT ["java","-jar","/app.jar"]
+CMD java -jar app.JAR_FILE

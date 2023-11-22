@@ -38,8 +38,6 @@ jobs:
   GenSBOM:
     runs-on: ubuntu-latest
     name: generate_SBOM
-    needs:
-      - depchecktest
     steps:
       - uses: actions/checkout@v4
 
@@ -62,6 +60,7 @@ jobs:
     runs-on: ubuntu-latest
     name: build docker BuildDockerImage
     needs:
+      - depchecktest
       - GenSBOM
     steps:
       - uses: actions/checkout@v4
