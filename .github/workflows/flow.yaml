@@ -48,18 +48,12 @@ jobs:
           java-version: '17'
           distribution: 'temurin'
           cache: 'maven'
-
-      - name: Build project with Maven
-        run: mvn clean install
       
-      - name: generate_SBOM
-        uses: advanced-security/generate-sbom-action@v1
-        env:
-          JAVA_HOME: /opt/jdk
-        id: gensbom
+      - name: Generate SBOM
+        run: mvn org.cyclonedx:cyclonedx-maven-plugin:makeAggregateBom
       
-      - name: Upload Test results
+      - name: Upload SBOM results
         uses: actions/upload-artifact@master
         with:
-          name: SBOM report
+          name: SBOM
           path: ${{github.workspace}}/sbom_report
