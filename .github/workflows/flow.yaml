@@ -34,3 +34,27 @@ jobs:
         with:
           name: Depcheck report
           path: ${{github.workspace}}/reports
+  
+  GenSBOM:
+    runs-on: ubuntu-latest
+    name: generate_SBOM
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-java@v3
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+          cache: 'maven'
+
+      - name: Build project with Maven
+        run: mvn clean install
+      
+      - uses: advanced-security/generate-sbom-action@v1
+        id: gensbom
+      
+      - name: Upload Test results
+        uses: actions/upload-artifact@master
+        with:
+          name: SBOM report
+          path: ${{github.workspace}}/sbom_report
