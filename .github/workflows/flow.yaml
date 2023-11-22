@@ -56,4 +56,4 @@ jobs:
         uses: actions/upload-artifact@master
         with:
           name: SBOM
-          path: ${{github.workspace}}/sbom_report
+          path: target/bom.xml
